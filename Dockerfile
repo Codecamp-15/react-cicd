@@ -1,11 +1,12 @@
-FROM node:16-alpine
+FROM node:alpine
 
-WORKDIR /app
+WORKDIR '/app'
 
-COPY . .
+COPY . '/app'
 
 RUN npm install
 
-EXPOSE 4000
 
 CMD [ "npm","start" ]
+
+#  docker build --tag react-cc14 .
