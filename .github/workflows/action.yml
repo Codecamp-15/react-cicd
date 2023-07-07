@@ -1,0 +1,36 @@
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Checkout code
+    uses: actions/checkout@v3
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 16
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build React app
+              run: npm run build
+
+            - name: Docker Build and Push
+              uses: docker/build-push-action@v2
+              with:
+                  context: .
+                  push: true
+                  tags: pavit/react-ci:latest
+
+            - name: Deploy to Cloud
+              uses: appleboy/ssh-action@master
+              with:
+                  host: 103.74.254.118
+                  username: nc-user
+                  key: CodecampOnline!15
+                  script: |
+                      docker pull pavitpim/react-ci:latest
+                      docker run -d -p 80:80 pavitpim/react-ci:latest
