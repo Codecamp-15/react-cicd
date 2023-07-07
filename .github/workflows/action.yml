@@ -31,7 +31,7 @@ jobs:
               with:
                   context: .
                   push: true
-                  tags: your-docker-registry/repository-name:latest
+                  tags: pavitpim40/react-ci:latest
 
             - name: Deploy to Cloud
               uses: appleboy/ssh-action@master
