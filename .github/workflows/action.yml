@@ -1,23 +1,24 @@
-# .github/workflows/action.yml
+# .github/workflows/cicd.yml
+
 name: CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
 
-    steps:
-     - name: Checkout code
-    uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
 
             - name: Set up Node.js
               uses: actions/setup-node@v2
               with:
-                  node-version: 16
+                  node-version: 14
 
             - name: Install dependencies
               run: npm install
@@ -30,14 +31,11 @@ jobs:
               with:
                   context: .
                   push: true
-                  tags: pavit/react-ci:latest
+                  tags: your-docker-registry/repository-name:latest
 
             - name: Deploy to Cloud
               uses: appleboy/ssh-action@master
               with:
                   host: 103.74.254.118
                   username: nc-user
-                  key: CodecampOnline!15
-                  script: |
-                      docker pull pavitpim/react-ci:latest
-                      docker run -d -p 80:80 pavitpim/react-ci:latest
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
