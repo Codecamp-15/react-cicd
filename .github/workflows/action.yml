@@ -50,4 +50,4 @@ jobs:
                       docker pull pavitpim40/react-ci:latest
                       docker stop react-ci
                       docker rm react-ci
-                      docker run -d --name express-ci -p 80:80 pavitpim40/react-ci:latest
+                      docker run -d --name react-ci -p 80:80 pavitpim40/react-ci:latest
