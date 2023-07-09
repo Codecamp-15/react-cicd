@@ -1,7 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import axios from 'axios';
 
 function App() {
+    const [data, setData] = useState(null);
+
+    async function fetchData() {
+        try {
+            let response = await axios.get('http://139.5.147.220/8000');
+            console.log(response);
+            setData(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className='App'>
             <header className='App-header'>
@@ -17,6 +30,8 @@ function App() {
                 >
                     Learn React
                 </a>
+                <button onClick={fetchData}>SEND REQUEST</button>
+                {data ? <p>{data}</p> : null}
             </header>
         </div>
     );
