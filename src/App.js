@@ -8,7 +8,7 @@ function App() {
 
     async function fetchData() {
         try {
-            let response = await axios.get('http://localhost:8000');
+            let response = await axios.get('http://139.5.147.220:8000');
             console.log(response);
             setData(response.data);
         } catch (error) {
