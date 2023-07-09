@@ -39,12 +39,6 @@ jobs:
                   push: true
                   tags: pavitpim40/react-ci:latest
 
-            # - name: Deploy to Cloud
-            #   uses: appleboy/ssh-action@master
-            #   with:
-            #       host: 139.5.147.220
-            #       username: nc-user
-            #       key: ${{ secrets.SSH_PRIVATE_KEY }}
             - name: Deploy to Cloud
               uses: appleboy/ssh-action@master
               with:
@@ -53,6 +47,7 @@ jobs:
                   key: ${{ secrets.SSH_PRIVATE_KEY }}
                   port: ${{ secrets.SSH_PORT }}
                   script: |
-                      cd /home/nc-user
-                      docker-compose down
-                      docker-compose up -d
+                      docker pull pavitpim40/react-ci:latest
+                      docker stop react-ci
+                      docker rm react-ci
+                      docker run -d --name express-ci -p 80:80 pavitpim40/react-ci:latest
